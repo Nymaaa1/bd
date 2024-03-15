@@ -99,11 +99,12 @@ const editOrder = catchAsync(async (req, res) => {
                 await orderService.editOrderData(orderData);
             }
         }
+        res.status(200).json({ message: "Амжилттай засагдлаа", status: "success" });
     }
     catch (error) {
         console.log(error)
     }
-    res.status(200).json({ message: "Амжилттай засагдлаа", status: "success" });
+
     // type = 0 shine zahialga
     // type = 1 count > wayCount (dutuu baraa avj ogson)
     // type = 2 count <= wayCount (zahialga bolson)
@@ -125,6 +126,7 @@ const upload = multer({
         }
         cb(null, true);
     },
+    limits: { fileSize: 20 * 1024 * 1024 }
 });
 
 const uploadImage = catchAsync(async (req, res) => {

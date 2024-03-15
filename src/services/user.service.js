@@ -2,7 +2,7 @@ const knex = require('knex')(require("../knex"));
 const jwt = require('jsonwebtoken');
 
 const getUserByEmail = async (email) => {
-    return user = await knex('users').where('email', email).first();
+    return await knex('users').where('email', email).first();
 };
 
 const createUser = async (body) => {

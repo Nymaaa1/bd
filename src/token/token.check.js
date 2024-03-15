@@ -6,15 +6,16 @@ const ApiError = require('../utils/ApiError');
 const checkToken = catchAsync(async (req, res, next) => {
     try {
         const token = await req.headers.authorization.split(" ")[1];
-        if (!token) return res.status(401).json({ status: "error", message: 'Токен алга' });
+        if (!token) return res.status(401).json({ status: "error", message: 'Гараад дахин нэвтэрнэ үү' });
         const decoded = jwt.decode(token.replace('Bearer ', ''), "TadeContruction19Token");
         const userData = await userService.getUserByEmail(decoded.email);
-        if (req.password === userData.password) return res.status(401).json({ status: "error", message: 'Токен алга' });
+        if (decoded.password != userData.password) return res.status(401).json({ status: "error", message: 'Гараад дахин нэвтэрнэ үү' });
         const now = Date.now();
         const twelveHoursLater = (now + (12 * 60 * 60)) / 1000;
         if (decoded.exp < twelveHoursLater) return res.status(401).json({ status: "error", message: 'Хугацаа дууссан гараад дахин нэвтэрнэ үү' });
         next();
     } catch (error) {
+        console.log(error);
         res.status(401).json({ status: "error", message: 'Хүчинтэй токен биш' });
     }
 });

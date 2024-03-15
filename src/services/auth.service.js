@@ -11,13 +11,15 @@ const createUser = async (userBody) => {
 };
 
 const loginUserWithEmailAndPassword = async (email, password) => {
-    if (!(await userService.getUserByEmail(email))) {
+    const userData = await userService.getUserByEmail(email);
+    if (!userData) {
         throw new ApiError(httpStatus.UNAUTHORIZED, 'Емэйл бүртгэлгүй байна!');
     }
-    if (!(await bcrypt.compare(password, user.password))) {
+    const passwordStatus = await bcrypt.compare(password, userData.password);
+    if (!passwordStatus) {
         throw new ApiError(httpStatus.UNAUTHORIZED, 'Нууц үг буруу!');
     }
-    return user;
+    return userData;
 };
 
 

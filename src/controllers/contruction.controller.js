@@ -3,7 +3,6 @@ const { contructionService } = require('../services');
 
 const getContructions = catchAsync(async (req, res) => {
     const data = ({ id: req.query.id, sCode: req.query.sCode });
-    console.log(req.query.id)
     const constructions = await contructionService.getContructionsData(data);
     res.status(200).json({ data: constructions, status: "success", message: "Амжилттай", });
 });

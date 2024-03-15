@@ -11,8 +11,9 @@ const validate = (schema) => (req, res, next) => {
     .validate(object);
 
   if (error) {
-    const errorMessage = error.details.map((details) => details.message).join(', ');
-    return next(new ApiError(httpStatus.BAD_REQUEST, errorMessage));
+    const errorMessage = error.details[0].message;
+    const randomValue = errorMessage.match(/"(.*?)"/)[1];
+    return next(new ApiError(httpStatus.BAD_REQUEST, "Утга зөв оруулна уу! (" + randomValue + ")"));
   }
   Object.assign(req, value);
   return next();
