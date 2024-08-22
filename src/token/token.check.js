@@ -5,6 +5,7 @@ const ApiError = require('../utils/ApiError');
 
 const checkToken = catchAsync(async (req, res, next) => {
     try {
+        console.log(req.headers.authorization);
         const token = await req.headers.authorization.split(" ")[1];
         if (!token) return res.status(401).json({ status: "error", message: 'Гараад дахин нэвтэрнэ үү' });
         const decoded = jwt.decode(token.replace('Bearer ', ''), "TadeContruction19Token");
@@ -16,7 +17,7 @@ const checkToken = catchAsync(async (req, res, next) => {
         next();
     } catch (error) {
         console.log(error);
-        res.status(401).json({ status: "error", message: 'Хүчинтэй токен биш' });
+        res.status(401).json({ status: "error", message: 'Гараад дахин нэвтэрнэ үү' });
     }
 });
 

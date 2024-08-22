@@ -10,8 +10,6 @@ const getOrder = catchAsync(async (req, res) => {
 });
 
 const createOrder = catchAsync(async (req, res) => {
-    console.log(req.body);
-    console.log("here right");
     await orderService.createOrderData(req.body);
     res.status(200).json({ message: "Амжилттай хадгаллаа", status: "success" });
 });
