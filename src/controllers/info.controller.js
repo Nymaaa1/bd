@@ -2,7 +2,7 @@ const catchAsync = require('../utils/catchAsync');
 const { infoService } = require('../services');
 
 const getInfo = catchAsync(async (req, res) => {
-    // const constructions = await infoService.getInfo(data);
+    const constructions = await infoService.getMeals();
     const ress = {
         kal: 1227,
         dutuu: 1503,
@@ -11,21 +11,7 @@ const getInfo = catchAsync(async (req, res) => {
         ooh: 50,
         water: 2100,
         last: [
-            {
-                name: "Breakfast",
-                desc: "",
-                kal: "525"
-            },
-            {
-                name: "Lunch",
-                desc: "",
-                kal: "450"
-            },
-            {
-                name: "Snack",
-                desc: "",
-                kal: "602"
-            }
+            constructions
         ]
     }
     res.status(200).json({ data: ress, status: "success", message: "Амжилттай", });

@@ -5,6 +5,11 @@ const getInfo = async (body) => {
     return contructionData;
 };
 
+const getMeals = async () => {
+    const contructionData = await tadeService.getMeals()
+    return contructionData;
+};
+
 const getDasgal = async () => {
     const contructionData = await tadeService.getDasgal();
     return contructionData;
@@ -16,6 +21,7 @@ const createContructionsData = async (body) => {
 
 module.exports = {
     getInfo,
+    getMeals,
     getDasgal,
     createContructionsData
 };

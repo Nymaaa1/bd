@@ -29,8 +29,12 @@ const getContruction = async (body) => {
     return res;
 };
 
+const getMeals = async () => {
+    return contructio = await knex.select('*').from('meals');
+};
+
 const getDasgal = async () => {
-    return contructions = await knex.select('*').from('dasgal');
+    return contructi = await knex.select('*').from('dasgal');
 };
 
 const createContruction = async (body) => {
@@ -44,6 +48,7 @@ const createContruction = async (body) => {
 
 module.exports = {
     getContruction,
+    getMeals,
     getDasgal,
     createContruction
 };
