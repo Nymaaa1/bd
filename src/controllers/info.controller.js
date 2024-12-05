@@ -10,9 +10,8 @@ const getInfo = catchAsync(async (req, res) => {
         uurag: 40,
         ooh: 50,
         water: 2100,
-        last: [
+        last:
             constructions
-        ]
     }
     res.status(200).json({ data: ress, status: "success", message: "Амжилттай", });
 });
