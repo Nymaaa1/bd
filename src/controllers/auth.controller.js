@@ -6,9 +6,8 @@ const tokenService = require('../token/token.check');
 const logger = require('../config/logger');
 
 const register = catchAsync(async (req, res) => {
-    console.log(req.body);
-    const user = await authService.createUser(req.body);
-    res.status(httpStatus.CREATED).json({ data: user, message: "Амжилттай", status: 0 });
+    authService.createUser(req.body);
+    res.status(httpStatus.CREATED).json({ message: "Амжилттай", status: 1 });
 });
 
 const login = catchAsync(async (req, res) => {

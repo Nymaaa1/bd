@@ -5,13 +5,18 @@ const getUserByEmail = async (email) => {
 };
 
 const createUser = async (body) => {
-    return await knex('user').insert({
-        firstname: body.firstname,
-        lastname: body.lastname,
-        password: body.password,
-        email: body.email,
-        idAdmin: false
-    });
+    try {
+        return await knex('user').insert({
+            firstname: body.firstname,
+            lastname: body.lastname,
+            password: body.password,
+            email: body.email,
+            token: "",
+            isAdmin: false
+        });
+    } catch (e) {
+        console.log(e);
+    }
 };
 
 const refreshUserToken = async (user, token) => {
