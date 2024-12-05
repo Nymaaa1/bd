@@ -8,7 +8,7 @@ const checkToken = catchAsync(async (req, res, next) => {
         console.log(req.headers.authorization);
         const token = await req.headers.authorization.split(" ")[1];
         if (!token) return res.status(401).json({ status: "error", message: 'Гараад дахин нэвтэрнэ үү' });
-        const decoded = jwt.decode(token.replace('Bearer ', ''), "TadeContruction19Token");
+        const decoded = jwt.decode(token.replace('Bearer ', ''), "Biydaalt");
         const userData = await userService.getUserByEmail(decoded.email);
         if (decoded.password != userData.password) return res.status(401).json({ status: "error", message: 'Гараад дахин нэвтэрнэ үү' });
         const now = Date.now();
@@ -24,13 +24,11 @@ const checkToken = catchAsync(async (req, res, next) => {
 const refreshToken = async (user) => {
     try {
         const token = jwt.sign({
-            image: user.image,
-            name: user.name,
+            name: user.firstname,
             password: user.password,
-            role: user.role,
             email: user.email,
-            phone: user.phone
-        }, 'TadeContruction19Token', {
+            phone: user.lastname
+        }, 'Biydaalt', {
             expiresIn: '12h'
         });
         await userService.refreshUserToken(user, token);

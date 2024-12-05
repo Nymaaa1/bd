@@ -1,6 +1,6 @@
 const tadeService = require('./tade.service');
 
-const getContructionsData = async (body) => {
+const getInfo = async (body) => {
     const contructionData = await tadeService.getContruction(body)
     return contructionData;
 };
@@ -10,6 +10,6 @@ const createContructionsData = async (body) => {
 };
 
 module.exports = {
-    getContructionsData,
+    getInfo,
     createContructionsData
 };

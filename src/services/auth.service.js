@@ -4,9 +4,6 @@ const ApiError = require('../utils/ApiError');
 const bcrypt = require('bcryptjs');
 
 const createUser = async (userBody) => {
-    if (await userService.getUserByEmail(userBody.email)) {
-        throw new ApiError(httpStatus.BAD_REQUEST, 'Емэйл бүртгэлтэй!');
-    }
     return userService.createUser(userBody);
 };
 
@@ -15,8 +12,7 @@ const loginUserWithEmailAndPassword = async (email, password) => {
     if (!userData) {
         throw new ApiError(httpStatus.UNAUTHORIZED, 'Емэйл бүртгэлгүй байна!');
     }
-    const passwordStatus = await bcrypt.compare(password, userData.password);
-    if (!passwordStatus) {
+    if (password != userData.password) {
         throw new ApiError(httpStatus.UNAUTHORIZED, 'Нууц үг буруу!');
     }
     return userData;

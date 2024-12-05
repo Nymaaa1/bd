@@ -1,7 +1,6 @@
 const express = require('express');
-const order = require("./order.route");
 const authRoute = require('./auth.route');
-const contruction = require('./contruction.route');
+const info = require('./info.route');
 const router = express.Router();
 
 const defaultRoutes = [
@@ -10,13 +9,9 @@ const defaultRoutes = [
         route: authRoute,
     },
     {
-        path: '/contruction',
-        route: contruction,
+        path: '/info',
+        route: info,
     },
-    {
-        path: '/order',
-        route: order,
-    }
 ];
 
 defaultRoutes.forEach((route) => {

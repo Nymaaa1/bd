@@ -4,7 +4,6 @@ const xss = require('xss-clean');
 const compression = require('compression');
 const cors = require('cors');
 const httpStatus = require('http-status');
-const { authLimiter } = require('./middlewares/rateLimiter');
 const routes = require('./routes/v1');
 const ApiError = require('./utils/ApiError');
 
@@ -16,14 +15,12 @@ app.use(xss());
 app.use(compression());
 app.use(cors());
 app.options('*', cors());
-app.use('/v1/auth', authLimiter);
 app.use('/v1', routes);
-app.use('/v1/upload', express.static('upload/images')); 
 
 app.use((err, req, res, next) => {
   if (err instanceof ApiError) {
     const errorResponse = {
-      status: 'error',
+      status: 0,
       message: err.message,
     };
     if (process.env.NODE_ENV === 'development') {
@@ -32,7 +29,7 @@ app.use((err, req, res, next) => {
     res.status(err.statusCode).json(errorResponse);
   } else {
     res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
-      status: 'error',
+      status: 0,
       message: 'Алдаа!',
     });
   }

@@ -6,14 +6,9 @@ const tokenService = require('../token/token.check');
 const logger = require('../config/logger');
 
 const register = catchAsync(async (req, res) => {
-    if (req.body.myToken !== "TadeContruction") {
-        logger.error("Шинэ хэрэглэгч үүсгэх гэж оролдлоо!!!");
-        res.status(400).json({ status: "error", message: "Хамгаалалт!" });
-    } else {
-        req.body.password = await bcrypt.hash(req.body.password, 10);
-        const user = await authService.createUser(req.body);
-        res.status(httpStatus.CREATED).json({ data: user, message: "Амжилттай", status: "success" });
-    }
+    console.log(req.body);
+    const user = await authService.createUser(req.body);
+    res.status(httpStatus.CREATED).json({ data: user, message: "Амжилттай", status: 0 });
 });
 
 const login = catchAsync(async (req, res) => {
@@ -21,7 +16,8 @@ const login = catchAsync(async (req, res) => {
     const user = await authService.loginUserWithEmailAndPassword(email, password);
     const token = await tokenService.refreshToken(user);
     user.token = token;
-    res.status(httpStatus.CREATED).json({ data: user, message: "Амжилттай", status: "success" });
+    console.log(user);
+    res.status(httpStatus.CREATED).json({ data: user, message: "Амжилттай", status: 1 });
 });
 
 const logout = catchAsync(async (req, res) => {
